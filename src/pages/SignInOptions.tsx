@@ -5,7 +5,11 @@ import { getResponsiveSize } from "../utils";
 import Button from "../components/Button";
 import { COLORS } from "../colors";
 
-const SignInOptions = () => {
+const SignInOptions = ({
+  signUpWithEmail,
+}: {
+  signUpWithEmail: () => void;
+}) => {
   return (
     <LinearGradient
       colors={[COLORS.MAIZE, COLORS.ORANGISH]}
@@ -21,23 +25,30 @@ const SignInOptions = () => {
         Sign in to be able to save your preferences and settings.
       </Text>
       <View style={styles.buttonWrapper}>
-        <Button icon={<Image source={require("../assets/icons/apple.png")} />}>
+        <Button
+          variant="white"
+          icon={<Image source={require("../assets/icons/apple.png")} />}>
           Sign in with Apple
         </Button>
       </View>
       <View style={styles.buttonWrapper}>
         <Button
+          variant="white"
           icon={<Image source={require("../assets/icons/facebook.png")} />}>
           Sign in with Facebook
         </Button>
       </View>
       <View style={styles.buttonWrapper}>
-        <Button icon={<Image source={require("../assets/icons/google.png")} />}>
+        <Button
+          variant="white"
+          icon={<Image source={require("../assets/icons/google.png")} />}>
           Sign in with Google
         </Button>
       </View>
       <View style={styles.buttonWrapper}>
-        <Button>Sign in with Email</Button>
+        <Button variant="white" onPress={signUpWithEmail}>
+          Sign in with Email
+        </Button>
       </View>
       <View style={styles.linkWrapper}>
         <Text style={styles.link} onPress={() => console.log("log in")}>
