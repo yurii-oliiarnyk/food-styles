@@ -5,19 +5,21 @@ import { getResponsiveSize } from "../utils";
 
 const FormItem = ({
   label,
-  helper,
   children,
+  variant = "dark",
+  helper,
   last,
 }: {
   label: string;
   children: ReactChild;
+  variant?: "light" | "dark";
   helper?: string;
   last?: boolean;
 }) => {
   return (
     <View style={!last && styles.view}>
       <View style={styles.labelView}>
-        <Text style={styles.label}>
+        <Text style={[styles.label, styles[variant]]}>
           {label}
           {helper && <Text style={styles.helper}>{helper}</Text>}
         </Text>
@@ -39,6 +41,12 @@ const styles = StyleSheet.create({
     lineHeight: getResponsiveSize(19),
     fontWeight: "600",
     color: COLORS.WHITE,
+  },
+  light: {
+    color: COLORS.WHITE,
+  },
+  dark: {
+    color: COLORS.GREYISH_BROWN,
   },
   helper: {
     fontWeight: "400",
