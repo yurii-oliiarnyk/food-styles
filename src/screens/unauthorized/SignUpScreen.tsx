@@ -14,14 +14,18 @@ const SignUpScreen = ({ back }: { back: () => void }) => {
 
   return (
     <AuthLayout header={<Header title="Sign up with Email" back={back} />}>
-      <FormItem label="Your name">
-        <Input value={name} onChange={setName} />
+      <FormItem variant="light" label="Your name">
+        <Input variant="light" value={name} onChange={setName} />
       </FormItem>
-      <FormItem label="Email">
-        <Input value={email} onChange={setEmail} />
+      <FormItem variant="light" label="Email">
+        <Input variant="light" value={email} onChange={setEmail} />
       </FormItem>
-      <FormItem last label="Password" helper="(min 6 characters)">
-        <Input value={password} onChange={setPassword} />
+      <FormItem
+        variant="light"
+        last
+        label="Password"
+        helper="(min 6 characters)">
+        <Input variant="light" value={password} onChange={setPassword} />
       </FormItem>
       <View style={styles.buttonView}>
         <Button>SIGN UP</Button>

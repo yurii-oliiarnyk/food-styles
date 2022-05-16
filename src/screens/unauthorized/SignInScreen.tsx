@@ -13,11 +13,11 @@ const SignInScreen = ({ back }: { back: () => void }) => {
 
   return (
     <AuthLayout header={<Header title="Log in" back={back} />}>
-      <FormItem label="Email">
-        <Input value={email} onChange={setEmail} />
+      <FormItem variant="light" label="Email">
+        <Input variant="light" value={email} onChange={setEmail} />
       </FormItem>
-      <FormItem label="Password">
-        <Input value={password} onChange={setPassword} />
+      <FormItem variant="light" label="Password">
+        <Input variant="light" value={password} onChange={setPassword} />
       </FormItem>
       <View style={styles.buttonView}>
         <Button>SIGN IN</Button>

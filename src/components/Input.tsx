@@ -6,23 +6,34 @@ import { getResponsiveSize } from "../utils";
 const Input = ({
   value,
   onChange,
+  variant = "dark",
 }: {
   value: string;
   onChange: (value: string) => void;
+  variant?: "light" | "dark";
 }) => {
   return (
-    <TextInput style={styles.input} value={value} onChangeText={onChange} />
+    <TextInput
+      style={[styles.input, styles[variant]]}
+      value={value}
+      onChangeText={onChange}
+    />
   );
 };
 
 const styles = StyleSheet.create({
   input: {
     paddingHorizontal: getResponsiveSize(11),
-    backgroundColor: COLORS.WHITE,
     height: getResponsiveSize(35),
     color: COLORS.GREYISH_BROWN,
     fontWeight: "600",
     borderRadius: 4,
+  },
+  dark: {
+    backgroundColor: COLORS.SECONDARY,
+  },
+  light: {
+    backgroundColor: COLORS.WHITE,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
