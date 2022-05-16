@@ -5,10 +5,12 @@ import Button from "../components/Button";
 import { COLORS } from "../colors";
 import AuthLayout from "../layouts/AuthLayout";
 
-const SignInOptions = ({
+const WelcomeScreen = ({
   signUpWithEmail,
+  signInWithEmail,
 }: {
   signUpWithEmail: () => void;
+  signInWithEmail: () => void;
 }) => {
   return (
     <AuthLayout>
@@ -49,7 +51,7 @@ const SignInOptions = ({
           </Button>
         </View>
         <View style={styles.linkWrapper}>
-          <Text style={styles.link} onPress={() => console.log("log in")}>
+          <Text style={styles.link} onPress={signInWithEmail}>
             Log in with Email
           </Text>
         </View>
@@ -123,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignInOptions;
+export default WelcomeScreen;

@@ -7,24 +7,20 @@ import Input from "../components/Input";
 import AuthLayout from "../layouts/AuthLayout";
 import { getResponsiveSize } from "../utils";
 
-const SignUp = ({ back }: { back: () => void }) => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+const SignInScreen = ({ back }: { back: () => void }) => {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
-    <AuthLayout header={<Header title="Sign up with Email" back={back} />}>
-      <FormItem label="Your name">
-        <Input value={name} onChange={setName} />
-      </FormItem>
+    <AuthLayout header={<Header title="Log in" back={back} />}>
       <FormItem label="Email">
         <Input value={email} onChange={setEmail} />
       </FormItem>
-      <FormItem last label="Password" helper="(min 6 characters)">
+      <FormItem label="Password">
         <Input value={password} onChange={setPassword} />
       </FormItem>
       <View style={styles.buttonView}>
-        <Button>SIGN UP</Button>
+        <Button>SIGN IN</Button>
       </View>
     </AuthLayout>
   );
@@ -37,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUp;
+export default SignInScreen;
