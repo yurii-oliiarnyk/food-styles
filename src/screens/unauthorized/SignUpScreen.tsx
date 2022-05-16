@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import Button from "../components/Button";
-import FormItem from "../components/FormItem";
-import Header from "../components/Header";
-import Input from "../components/Input";
-import AuthLayout from "../layouts/AuthLayout";
-import { getResponsiveSize } from "../utils";
+import Button from "../../components/Button";
+import FormItem from "../../components/FormItem";
+import Header from "../../components/Header";
+import Input from "../../components/Input";
+import AuthLayout from "../../layouts/AuthLayout";
+import { getResponsiveSize } from "../../utils";
 
 const SignUpScreen = ({ back }: { back: () => void }) => {
   const [name, setName] = useState("");

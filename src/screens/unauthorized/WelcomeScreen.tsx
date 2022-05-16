@@ -1,9 +1,9 @@
 import React from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
-import { getResponsiveSize } from "../utils";
-import Button from "../components/Button";
-import { COLORS } from "../colors";
-import AuthLayout from "../layouts/AuthLayout";
+import { getResponsiveSize } from "../../utils";
+import Button from "../../components/Button";
+import { COLORS } from "../../colors";
+import AuthLayout from "../../layouts/AuthLayout";
 
 const WelcomeScreen = ({
   signUpWithEmail,
@@ -18,7 +18,7 @@ const WelcomeScreen = ({
         <View style={styles.logoWrapper}>
           <Image
             style={styles.logo}
-            source={require("../assets/images/logo.png")}
+            source={require("../../assets/images/logo.png")}
           />
         </View>
         <Text style={styles.title}>
@@ -27,21 +27,23 @@ const WelcomeScreen = ({
         <View style={styles.buttonWrapper}>
           <Button
             variant="white"
-            icon={<Image source={require("../assets/icons/apple.png")} />}>
+            icon={<Image source={require("../../assets/icons/apple.png")} />}>
             Sign in with Apple
           </Button>
         </View>
         <View style={styles.buttonWrapper}>
           <Button
             variant="white"
-            icon={<Image source={require("../assets/icons/facebook.png")} />}>
+            icon={
+              <Image source={require("../../assets/icons/facebook.png")} />
+            }>
             Sign in with Facebook
           </Button>
         </View>
         <View style={styles.buttonWrapper}>
           <Button
             variant="white"
-            icon={<Image source={require("../assets/icons/google.png")} />}>
+            icon={<Image source={require("../../assets/icons/google.png")} />}>
             Sign in with Google
           </Button>
         </View>
