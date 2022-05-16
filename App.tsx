@@ -1,11 +1,6 @@
 import React from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import Root from "./src/Root";
 
-const App = () => (
-  <SafeAreaProvider>
-    <Root />
-  </SafeAreaProvider>
-);
+const App = () => <Root />;
 
 export default App;
