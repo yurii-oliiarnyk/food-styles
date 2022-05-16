@@ -1,5 +1,11 @@
 import React, { ReactNode, useMemo } from "react";
-import { StatusBar, StyleSheet, View } from "react-native";
+import {
+  StatusBar,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { COLORS } from "../colors";
@@ -14,7 +20,7 @@ const AuthLayout = ({
 }) => {
   const { top, bottom } = useSafeAreaInsets();
 
-  const offsetStyles = useMemo(
+  const offsetStyles = useMemo<StyleProp<ViewStyle>>(
     () => ({
       paddingTop: !header ? top : 0,
       paddingBottom: bottom,
@@ -27,7 +33,6 @@ const AuthLayout = ({
       colors={[COLORS.MAIZE, COLORS.ORANGISH]}
       angle={230}
       useAngle
-      // eslint-disable-next-line react-native/no-inline-styles
       style={[styles.layout, offsetStyles]}>
       <StatusBar barStyle="light-content" />
       {header}
