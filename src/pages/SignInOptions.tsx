@@ -1,9 +1,9 @@
 import React from "react";
-import LinearGradient from "react-native-linear-gradient";
-import { Text, StyleSheet, View, StatusBar, Image } from "react-native";
+import { Text, StyleSheet, View, Image } from "react-native";
 import { getResponsiveSize } from "../utils";
 import Button from "../components/Button";
 import { COLORS } from "../colors";
+import AuthLayout from "../layouts/AuthLayout";
 
 const SignInOptions = ({
   signUpWithEmail,
@@ -11,76 +11,73 @@ const SignInOptions = ({
   signUpWithEmail: () => void;
 }) => {
   return (
-    <LinearGradient
-      colors={[COLORS.MAIZE, COLORS.ORANGISH]}
-      style={styles.view}>
-      <StatusBar barStyle="light-content" />
-      <View style={styles.logoWrapper}>
-        <Image
-          style={styles.logo}
-          source={require("../assets/images/logo.png")}
-        />
-      </View>
-      <Text style={styles.title}>
-        Sign in to be able to save your preferences and settings.
-      </Text>
-      <View style={styles.buttonWrapper}>
-        <Button
-          variant="white"
-          icon={<Image source={require("../assets/icons/apple.png")} />}>
-          Sign in with Apple
-        </Button>
-      </View>
-      <View style={styles.buttonWrapper}>
-        <Button
-          variant="white"
-          icon={<Image source={require("../assets/icons/facebook.png")} />}>
-          Sign in with Facebook
-        </Button>
-      </View>
-      <View style={styles.buttonWrapper}>
-        <Button
-          variant="white"
-          icon={<Image source={require("../assets/icons/google.png")} />}>
-          Sign in with Google
-        </Button>
-      </View>
-      <View style={styles.buttonWrapper}>
-        <Button variant="white" onPress={signUpWithEmail}>
-          Sign in with Email
-        </Button>
-      </View>
-      <View style={styles.linkWrapper}>
-        <Text style={styles.link} onPress={() => console.log("log in")}>
-          Log in with Email
+    <AuthLayout>
+      <View style={styles.view}>
+        <View style={styles.logoWrapper}>
+          <Image
+            style={styles.logo}
+            source={require("../assets/images/logo.png")}
+          />
+        </View>
+        <Text style={styles.title}>
+          Sign in to be able to save your preferences and settings.
         </Text>
-      </View>
-      <View style={styles.privacy}>
-        <Text style={styles.privacyText} allowFontScaling>
-          By signing in you accept the {"\n"}
-          <Text
-            style={styles.privacyLink}
-            onPress={() => console.log("general terms")}>
-            General Terms
-          </Text>{" "}
-          and{" "}
-          <Text
-            style={styles.privacyLink}
-            onPress={() => console.log("privacy policy")}>
-            Privacy Policy
+        <View style={styles.buttonWrapper}>
+          <Button
+            variant="white"
+            icon={<Image source={require("../assets/icons/apple.png")} />}>
+            Sign in with Apple
+          </Button>
+        </View>
+        <View style={styles.buttonWrapper}>
+          <Button
+            variant="white"
+            icon={<Image source={require("../assets/icons/facebook.png")} />}>
+            Sign in with Facebook
+          </Button>
+        </View>
+        <View style={styles.buttonWrapper}>
+          <Button
+            variant="white"
+            icon={<Image source={require("../assets/icons/google.png")} />}>
+            Sign in with Google
+          </Button>
+        </View>
+        <View style={styles.buttonWrapper}>
+          <Button variant="white" onPress={signUpWithEmail}>
+            Sign in with Email
+          </Button>
+        </View>
+        <View style={styles.linkWrapper}>
+          <Text style={styles.link} onPress={() => console.log("log in")}>
+            Log in with Email
           </Text>
-        </Text>
+        </View>
+        <View style={styles.privacy}>
+          <Text style={styles.privacyText} allowFontScaling>
+            By signing in you accept the {"\n"}
+            <Text
+              style={styles.privacyLink}
+              onPress={() => console.log("general terms")}>
+              General Terms
+            </Text>{" "}
+            and{" "}
+            <Text
+              style={styles.privacyLink}
+              onPress={() => console.log("privacy policy")}>
+              Privacy Policy
+            </Text>
+          </Text>
+        </View>
       </View>
-    </LinearGradient>
+    </AuthLayout>
   );
 };
 
 const styles = StyleSheet.create({
   view: {
-    paddingHorizontal: getResponsiveSize(38),
-    paddingVertical: getResponsiveSize(38),
-    flex: 1,
     justifyContent: "center",
+    flex: 1,
   },
   logoWrapper: {
     alignItems: "center",
