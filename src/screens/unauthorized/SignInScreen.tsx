@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react";
-import { StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import Button from "../../components/Button";
 import FormItem from "../../components/FormItem";
 import Header from "../../components/Header";
@@ -12,6 +12,7 @@ import Errors from "../../components/Errors";
 import UserContext from "../../context/UserContext";
 import useLoginWithEmailMutation from "../../hooks/mutations/useLoginWithEmailMutation";
 import Loader from "../../components/Loader";
+import Link from "../../components/Link";
 
 const SignInScreen = ({ back }: { back: () => void }) => {
   const { signIn } = useContext(UserContext);
@@ -70,6 +71,16 @@ const SignInScreen = ({ back }: { back: () => void }) => {
         <View style={styles.buttonView}>
           <Button onPress={onSubmit}>SIGN IN</Button>
         </View>
+        {error?.message && (
+          <View style={styles.linkWrapper}>
+            <Link
+              onPress={() =>
+                Alert.alert("Oops... functionality has not ready yet")
+              }>
+              Forgot my password
+            </Link>
+          </View>
+        )}
       </AuthLayout>
       <Loader visible={loading} />
     </View>
@@ -83,6 +94,9 @@ const styles = StyleSheet.create({
   buttonView: {
     alignItems: "center",
     marginTop: getResponsiveSize(13),
+  },
+  linkWrapper: {
+    marginTop: getResponsiveSize(21),
   },
 });
 

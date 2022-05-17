@@ -4,6 +4,7 @@ import { getResponsiveSize } from "../../utils";
 import Button from "../../components/Button";
 import { COLORS } from "../../colors";
 import AuthLayout from "../../layouts/AuthLayout";
+import Link from "../../components/Link";
 
 const WelcomeScreen = ({
   signUpWithEmail,
@@ -53,9 +54,7 @@ const WelcomeScreen = ({
           </Button>
         </View>
         <View style={styles.linkWrapper}>
-          <Text style={styles.link} onPress={signInWithEmail}>
-            Sign in with Email
-          </Text>
+          <Link onPress={signInWithEmail}>Sign in with Email</Link>
         </View>
         <View style={styles.privacy}>
           <Text style={styles.privacyText} allowFontScaling>
@@ -104,13 +103,6 @@ const styles = StyleSheet.create({
   },
   linkWrapper: {
     marginTop: getResponsiveSize(5),
-  },
-  link: {
-    textAlign: "center",
-    color: COLORS.WHITE,
-    fontSize: getResponsiveSize(16),
-    lineHeight: getResponsiveSize(18),
-    fontWeight: "600",
   },
   privacy: {
     marginTop: getResponsiveSize(38),
