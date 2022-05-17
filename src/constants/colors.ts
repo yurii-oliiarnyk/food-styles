@@ -7,4 +7,5 @@ export const COLORS = {
   MAIZE: "#f3c442",
   AQUA_GREEN: "#11ce90",
   GREYISH_BROWN: "#434343",
+  TOMATO: "#f13838",
 };
