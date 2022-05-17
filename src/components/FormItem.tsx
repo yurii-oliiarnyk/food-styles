@@ -8,16 +8,14 @@ const FormItem = ({
   children,
   variant = "dark",
   helper,
-  last,
 }: {
   label: string;
   children: ReactChild;
   variant?: "light" | "dark";
   helper?: string;
-  last?: boolean;
 }) => {
   return (
-    <View style={!last && styles.view}>
+    <View style={styles.view}>
       <View style={styles.labelView}>
         <Text style={[styles.label, styles[variant]]}>
           {label}

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { StatusBar, StyleSheet, Text, View } from "react-native";
 import FormItem from "../../components/FormItem";
 import Button from "../../components/Button";
@@ -7,24 +7,20 @@ import { COLORS } from "../../colors";
 import { getResponsiveSize } from "../../utils";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useForm from "../../hooks/useForm";
-import { gql, useMutation } from "@apollo/client";
 import { validators } from "../../validators";
 import Errors from "../../components/Errors";
 import UserContext from "../../context/UserContext";
-
-const UPDATE_USER = gql`
-  mutation UpdateUser($name: NonEmptyString!, $email: EmailAddress!) {
-    updateUser(name: $name, email: $email) {
-      id
-      name
-      email
-    }
-  }
-`;
+import useUpdateUserMutation from "../../hooks/mutations/useUpdateUserMutation";
+import Loader from "../../components/Loader";
 
 const ProfileScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
   const { logOut, user, updateUser } = useContext(UserContext);
+  const {
+    updateUser: updateUserMutate,
+    loading,
+    error,
+  } = useUpdateUserMutation();
 
   const {
     values: { name, email },
@@ -42,18 +38,19 @@ const ProfileScreen = () => {
     },
   );
 
-  const [updateUserInfo, { loading, error }] = useMutation(UPDATE_USER);
-
   const onSubmit = () => {
     if (checkValidation()) {
-      updateUserInfo({
-        variables: { name, email },
-        onCompleted: ({ updateUser: updatedUser }) => {
-          updateUser(updatedUser);
-        },
-      });
+      updateUserMutate({ name, email }, updateUser);
     }
   };
+
+  const visibleErrors = useMemo(() => {
+    if (error?.message) {
+      return [error.message];
+    }
+
+    return errorMessages;
+  }, [error, errorMessages]);
 
   return (
     <View style={styles.page}>
@@ -68,7 +65,7 @@ const ProfileScreen = () => {
         <FormItem label="Email">
           <Input value={email} onChange={setFieldValue("email")} />
         </FormItem>
-        {errorMessages.length > 0 && <Errors messages={errorMessages} />}
+        {visibleErrors.length > 0 && <Errors messages={visibleErrors} />}
         <View style={styles.buttonWrapper}>
           <Button variant="grey" size="small" onPress={logOut}>
             LOG OUT
@@ -80,6 +77,7 @@ const ProfileScreen = () => {
           <Button onPress={onSubmit}>DONE</Button>
         </View>
       </View>
+      <Loader visible={loading} />
     </View>
   );
 };
@@ -107,6 +105,7 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: "center",
     marginTop: "auto",
+    paddingTop: getResponsiveSize(13),
   },
   controlsBar: {
     backgroundColor: "#fff",

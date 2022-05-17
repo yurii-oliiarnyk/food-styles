@@ -1,7 +1,7 @@
 export const validators = {
   name: {
-    validate: (value: string) => value.length > 3,
-    message: "Name is too short",
+    validate: (value: string) => value.trim().length > 0,
+    message: "Name can't be empty",
   },
   password: {
     validate: (value: string) => value.length >= 6,

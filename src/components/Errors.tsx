@@ -17,17 +17,20 @@ const Errors = ({ messages }: { messages: string[] }) => {
 
 const styles = StyleSheet.create({
   view: {
-    marginBottom: getResponsiveSize(-8),
+    marginBottom: getResponsiveSize(-6),
+    alignItems: "center",
   },
   message: {
     backgroundColor: "red",
-    marginBottom: getResponsiveSize(8),
-    padding: getResponsiveSize(4),
+    marginBottom: getResponsiveSize(6),
+    paddingHorizontal: getResponsiveSize(9),
+    paddingVertical: getResponsiveSize(4),
   },
   messageText: {
     color: COLORS.WHITE,
     fontWeight: "bold",
-    fontSize: getResponsiveSize(14),
+    fontSize: getResponsiveSize(16),
+    lineHeight: getResponsiveSize(17),
   },
 });
 
