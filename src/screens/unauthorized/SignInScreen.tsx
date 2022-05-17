@@ -1,5 +1,11 @@
-import React, { useContext, useMemo } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import React, { useContext, useMemo, useRef } from "react";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 import Button from "../../components/Button";
 import FormItem from "../../components/FormItem";
 import Header from "../../components/Header";
@@ -15,6 +21,7 @@ import Loader from "../../components/Loader";
 import Link from "../../components/Link";
 
 const SignInScreen = ({ back }: { back: () => void }) => {
+  const passwordInput = useRef<TextInput>(null);
   const { signIn } = useContext(UserContext);
   const { error, loading, loginWithEmail } = useLoginWithEmailMutation();
 
@@ -31,7 +38,7 @@ const SignInScreen = ({ back }: { back: () => void }) => {
     { email: validators.email, password: validators.password },
   );
 
-  const onSubmit = () => {
+  const submit = () => {
     const isFormValid = checkValidation();
 
     if (isFormValid) {
@@ -50,26 +57,35 @@ const SignInScreen = ({ back }: { back: () => void }) => {
   }, [error, errorMessages]);
 
   return (
-    <View style={styles.view}>
+    <KeyboardAvoidingView style={styles.view} behavior="height">
       <AuthLayout header={<Header title="Log in" back={back} />}>
         <FormItem variant="light" label="Email">
           <Input
+            type="email"
+            autoFocus
             variant="light"
             value={email}
             onChange={setFieldValue("email")}
+            onSubmitEditing={() => passwordInput.current?.focus()}
+            returnKeyType="next"
+            blurOnSubmit={false}
           />
         </FormItem>
         <FormItem variant="light" label="Password">
           <Input
+            ref={passwordInput}
             type="password"
             variant="light"
             value={password}
             onChange={setFieldValue("password")}
+            onSubmitEditing={submit}
+            returnKeyType="send"
+            blurOnSubmit={false}
           />
         </FormItem>
         {visibleErrors.length > 0 && <Errors messages={visibleErrors} />}
         <View style={styles.buttonView}>
-          <Button onPress={onSubmit}>SIGN IN</Button>
+          <Button onPress={submit}>SIGN IN</Button>
         </View>
         {error?.message && (
           <View style={styles.linkWrapper}>
@@ -83,7 +99,7 @@ const SignInScreen = ({ back }: { back: () => void }) => {
         )}
       </AuthLayout>
       <Loader visible={loading} />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
