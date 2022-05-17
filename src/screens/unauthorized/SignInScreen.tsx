@@ -32,8 +32,8 @@ const SignInScreen = ({ back }: { back: () => void }) => {
     errorMessages,
   } = useForm<"email" | "password">(
     {
-      password: "testtest",
-      email: "test@test.io",
+      password: "",
+      email: "",
     },
     { email: validators.email, password: validators.password },
   );

@@ -32,9 +32,9 @@ const SignUpScreen = ({ back }: { back: () => void }) => {
     errorMessages,
   } = useForm<"name" | "password" | "email">(
     {
-      name: "test",
-      password: "testtest",
-      email: "test@test.io",
+      name: "",
+      password: "",
+      email: "",
     },
     {
       name: validators.name,
