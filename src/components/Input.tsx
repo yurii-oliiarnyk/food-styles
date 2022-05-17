@@ -7,16 +7,19 @@ const Input = ({
   value,
   onChange,
   variant = "dark",
+  type = "text",
 }: {
   value: string;
   onChange: (value: string) => void;
   variant?: "light" | "dark";
+  type?: "text" | "password";
 }) => {
   return (
     <TextInput
       style={[styles.input, styles[variant]]}
       value={value}
       onChangeText={onChange}
+      secureTextEntry={type === "password"}
     />
   );
 };
