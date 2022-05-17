@@ -15,71 +15,81 @@ const WelcomeScreen = ({
   signInWithEmail: () => void;
 }) => {
   return (
-    <AuthLayout>
-      <View style={styles.view}>
-        <View style={styles.logoWrapper}>
-          <Image
-            style={styles.logo}
-            source={require("../../assets/images/logo.png")}
-          />
-        </View>
-        <Text style={styles.title}>
-          Sign in to be able to save your preferences and settings.
-        </Text>
-        <View style={styles.buttonWrapper}>
-          <Button
-            variant="white"
-            icon={<Image source={require("../../assets/icons/apple.png")} />}>
-            Sign in with Apple
-          </Button>
-        </View>
-        <View style={styles.buttonWrapper}>
-          <Button
-            variant="white"
-            icon={
-              <Image source={require("../../assets/icons/facebook.png")} />
-            }>
-            Sign in with Facebook
-          </Button>
-        </View>
-        <View style={styles.buttonWrapper}>
-          <Button
-            variant="white"
-            icon={<Image source={require("../../assets/icons/google.png")} />}>
-            Sign in with Google
-          </Button>
-        </View>
-        <View style={styles.buttonWrapper}>
-          <Button variant="white" onPress={signUpWithEmail}>
-            Sign up with Email
-          </Button>
-        </View>
-        <View style={styles.linkWrapper}>
-          <Link onPress={signInWithEmail}>Log in with Email</Link>
-        </View>
-        <View style={styles.privacy}>
-          <Text style={styles.privacyText} allowFontScaling>
-            By signing in you accept the {"\n"}
-            <Text
-              style={styles.privacyLink}
-              onPress={() => Alert.alert("General terms")}>
-              General Terms
-            </Text>{" "}
-            and{" "}
-            <Text
-              style={styles.privacyLink}
-              onPress={() => Alert.alert("Privacy policy")}>
-              Privacy Policy
-            </Text>
+    <View style={styles.view}>
+      <AuthLayout>
+        <View style={styles.content}>
+          <View style={styles.logoWrapper}>
+            <Image
+              style={styles.logo}
+              source={require("../../assets/images/logo.png")}
+            />
+          </View>
+          <Text style={styles.title}>
+            Sign in to be able to save your preferences and settings.
           </Text>
+          <View style={styles.buttonWrapper}>
+            <Button
+              variant="white"
+              icon={<Image source={require("../../assets/icons/apple.png")} />}>
+              Sign in with Apple
+            </Button>
+          </View>
+          <View style={styles.buttonWrapper}>
+            <Button
+              variant="white"
+              icon={
+                <Image source={require("../../assets/icons/facebook.png")} />
+              }>
+              Sign in with Facebook
+            </Button>
+          </View>
+          <View style={styles.buttonWrapper}>
+            <Button
+              variant="white"
+              icon={
+                <Image source={require("../../assets/icons/google.png")} />
+              }>
+              Sign in with Google
+            </Button>
+          </View>
+          <View style={styles.buttonWrapper}>
+            <Button variant="white" onPress={signUpWithEmail}>
+              Sign up with Email
+            </Button>
+          </View>
+          <View style={styles.linkWrapper}>
+            <Link onPress={signInWithEmail}>Log in with Email</Link>
+          </View>
+          <View style={styles.privacy}>
+            <Text style={styles.privacyText} allowFontScaling>
+              By signing in you accept the {"\n"}
+              <Text
+                style={styles.privacyLink}
+                onPress={() => Alert.alert("General terms")}>
+                General Terms
+              </Text>{" "}
+              and{" "}
+              <Text
+                style={styles.privacyLink}
+                onPress={() => Alert.alert("Privacy policy")}>
+                Privacy Policy
+              </Text>
+            </Text>
+          </View>
         </View>
+      </AuthLayout>
+      <View style={styles.labelWrapper}>
+        <Text style={styles.labelText}>BETA VERSION</Text>
       </View>
-    </AuthLayout>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   view: {
+    flex: 1,
+  },
+  content: {
     justifyContent: "center",
     flex: 1,
   },
@@ -119,6 +129,29 @@ const styles = StyleSheet.create({
   },
   privacyLink: {
     textDecorationLine: "underline",
+  },
+  labelWrapper: {
+    backgroundColor: COLORS.TOMATO,
+    shadowColor: COLORS.GREYISH_BROWN,
+    paddingVertical: getResponsiveSize(9),
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.3,
+    position: "absolute",
+    left: "-33%",
+    top: getResponsiveSize(45),
+    width: "100%",
+    transform: [{ rotate: "-30deg" }],
+  },
+  labelText: {
+    color: COLORS.WHITE,
+    fontFamily: FONTS["ProximaNovaA-Bold"],
+    fontSize: getResponsiveSize(17),
+    letterSpacing: getResponsiveSize(0.77),
+    textAlign: "center",
   },
 });
 
