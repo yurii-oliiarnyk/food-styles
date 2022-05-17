@@ -12,6 +12,7 @@ import Errors from "../../components/Errors";
 import UserContext from "../../context/UserContext";
 import useUpdateUserMutation from "../../hooks/mutations/useUpdateUserMutation";
 import Loader from "../../components/Loader";
+import { showMessage } from "react-native-flash-message";
 
 const ProfileScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
@@ -40,7 +41,14 @@ const ProfileScreen = () => {
 
   const onSubmit = () => {
     if (checkValidation()) {
-      updateUserMutate({ name, email }, updateUser);
+      updateUserMutate({ name, email }, updatedUser => {
+        showMessage({
+          message: "User's information successfully updated!",
+          type: "info",
+        });
+
+        updateUser(updatedUser);
+      });
     }
   };
 

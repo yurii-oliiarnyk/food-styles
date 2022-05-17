@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View, Image } from "react-native";
+import { Text, StyleSheet, View, Image, Alert } from "react-native";
 import { getResponsiveSize } from "../../utils";
 import Button from "../../components/Button";
 import { COLORS } from "../../colors";
@@ -62,13 +62,13 @@ const WelcomeScreen = ({
             By signing in you accept the {"\n"}
             <Text
               style={styles.privacyLink}
-              onPress={() => console.log("general terms")}>
+              onPress={() => Alert.alert("General terms")}>
               General Terms
             </Text>{" "}
             and{" "}
             <Text
               style={styles.privacyLink}
-              onPress={() => console.log("privacy policy")}>
+              onPress={() => Alert.alert("Privacy policy")}>
               Privacy Policy
             </Text>
           </Text>

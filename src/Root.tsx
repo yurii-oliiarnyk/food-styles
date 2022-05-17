@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import RootNavigator from "./navigation/RootNavigator";
 import UserContext from "./context/UserContext";
 import useLoginWithEmailMutation from "./hooks/mutations/useLoginWithEmailMutation";
@@ -64,19 +63,17 @@ const Root = () => {
   }, []);
 
   return (
-    <SafeAreaProvider>
-      <UserContext.Provider
-        value={{
-          user,
-          isAuthorized,
-          signIn,
-          logOut,
-          updateUser,
-        }}>
-        <RootNavigator />
-        <Loader visible={!initialized} />
-      </UserContext.Provider>
-    </SafeAreaProvider>
+    <UserContext.Provider
+      value={{
+        user,
+        isAuthorized,
+        signIn,
+        logOut,
+        updateUser,
+      }}>
+      <RootNavigator />
+      <Loader visible={!initialized} />
+    </UserContext.Provider>
   );
 };
 
