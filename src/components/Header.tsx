@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { COLORS } from "../colors";
+import { COLORS } from "../constants/colors";
+import { FONTS } from "../constants/fonts";
 import { getResponsiveSize } from "../utils";
 
 const Header = ({ title, back }: { title: string; back?: () => void }) => {
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontSize: getResponsiveSize(20),
     lineHeight: getResponsiveSize(22),
-    fontWeight: "bold",
+    fontFamily: FONTS["ProximaNovaA-Bold"],
     textAlign: "center",
   },
   backButton: {

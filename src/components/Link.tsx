@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import { COLORS } from "../colors";
+import { COLORS } from "../constants/colors";
+import { FONTS } from "../constants/fonts";
 import { getResponsiveSize } from "../utils";
 
 const Link = ({
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontSize: getResponsiveSize(16),
     lineHeight: getResponsiveSize(18),
-    fontWeight: "600",
+    fontFamily: FONTS["ProximaNovaA-Bold"],
   },
 });
 
