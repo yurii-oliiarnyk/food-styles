@@ -1,26 +1,54 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import Button from "../../components/Button";
 import FormItem from "../../components/FormItem";
 import Header from "../../components/Header";
 import Input from "../../components/Input";
+import useForm from "../../hooks/useForm";
 import AuthLayout from "../../layouts/AuthLayout";
+import { validators } from "../../validators";
 import { getResponsiveSize } from "../../utils";
+import Errors from "../../components/Errors";
 
 const SignInScreen = ({ back }: { back: () => void }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    values: { email, password },
+    setFieldValue,
+    checkValidation,
+    errorMessages,
+  } = useForm<"email" | "password">(
+    { email: "", password: "" },
+    { email: validators.email, password: validators.password },
+  );
+
+  const onSubmit = () => {
+    const isFormValid = checkValidation();
+
+    if (isFormValid) {
+      console.log(isFormValid);
+    }
+  };
 
   return (
     <AuthLayout header={<Header title="Log in" back={back} />}>
       <FormItem variant="light" label="Email">
-        <Input variant="light" value={email} onChange={setEmail} />
+        <Input
+          variant="light"
+          value={email}
+          onChange={setFieldValue("email")}
+        />
       </FormItem>
       <FormItem variant="light" label="Password">
-        <Input variant="light" value={password} onChange={setPassword} />
+        <Input
+          type="password"
+          variant="light"
+          value={password}
+          onChange={setFieldValue("password")}
+        />
       </FormItem>
+      {errorMessages.length > 0 && <Errors messages={errorMessages} />}
       <View style={styles.buttonView}>
-        <Button>SIGN IN</Button>
+        <Button onPress={onSubmit}>SIGN IN</Button>
       </View>
     </AuthLayout>
   );

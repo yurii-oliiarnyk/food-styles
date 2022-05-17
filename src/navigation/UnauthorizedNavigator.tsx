@@ -9,7 +9,7 @@ enum Screens {
   SIGN_UP_EMAIL = "sing-up-email",
 }
 
-const UnauthorizedNavigator = () => {
+const UnauthorizedNavigator = ({ logIn }: { logIn: () => void }) => {
   const [page, setPage] = useState(Screens.SIGN_IN);
 
   if (page === Screens.SIGN_UP_EMAIL) {
@@ -24,6 +24,7 @@ const UnauthorizedNavigator = () => {
     <WelcomeScreen
       signUpWithEmail={() => setPage(Screens.SIGN_UP_EMAIL)}
       signInWithEmail={() => setPage(Screens.SIGN_IN_EMAIL)}
+    // signInWithEmail={logIn}
     />
   );
 };
