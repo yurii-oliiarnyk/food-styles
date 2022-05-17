@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import UserContext from "../context/UserContext";
 import AuthorizedNavigator from "./AuthorizedNavigator";
 import UnauthorizedNavigator from "./UnauthorizedNavigator";
 
 const Root = () => {
-  const [isAuthorized, setIsAuthorized] = useState(true);
-
-  const logOut = () => setIsAuthorized(false);
-  const logIn = () => setIsAuthorized(true);
+  const { isAuthorized } = useContext(UserContext);
 
   if (isAuthorized) {
-    return <AuthorizedNavigator logOut={logOut} />;
+    return <AuthorizedNavigator />;
   }
 
-  return <UnauthorizedNavigator logIn={logIn} />;
+  return <UnauthorizedNavigator />;
 };
 
 export default Root;
