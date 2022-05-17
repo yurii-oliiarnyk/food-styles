@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { COLORS } from "../colors";
+import { COLORS } from "../constants/colors";
+import { FONTS } from "../constants/fonts";
 import { getResponsiveSize } from "../utils";
 
 const Errors = ({ messages }: { messages: string[] }) => {
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   },
   messageText: {
     color: COLORS.WHITE,
-    fontWeight: "bold",
+    fontFamily: FONTS["ProximaNovaA-Semibold"],
     fontSize: getResponsiveSize(16),
     lineHeight: getResponsiveSize(17),
   },

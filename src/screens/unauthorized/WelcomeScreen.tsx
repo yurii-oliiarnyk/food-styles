@@ -2,9 +2,10 @@ import React from "react";
 import { Text, StyleSheet, View, Image, Alert } from "react-native";
 import { getResponsiveSize } from "../../utils";
 import Button from "../../components/Button";
-import { COLORS } from "../../colors";
+import { COLORS } from "../../constants/colors";
 import AuthLayout from "../../layouts/AuthLayout";
 import Link from "../../components/Link";
+import { FONTS } from "../../constants/fonts";
 
 const WelcomeScreen = ({
   signUpWithEmail,
@@ -54,7 +55,7 @@ const WelcomeScreen = ({
           </Button>
         </View>
         <View style={styles.linkWrapper}>
-          <Link onPress={signInWithEmail}>Sign in with Email</Link>
+          <Link onPress={signInWithEmail}>Log in with Email</Link>
         </View>
         <View style={styles.privacy}>
           <Text style={styles.privacyText} allowFontScaling>
@@ -91,6 +92,7 @@ const styles = StyleSheet.create({
     height: getResponsiveSize(150) * 0.85,
   },
   title: {
+    fontFamily: FONTS["ProximaNovaA-Regular"],
     fontSize: getResponsiveSize(18),
     lineHeight: getResponsiveSize(22),
     textAlign: "center",
@@ -113,6 +115,7 @@ const styles = StyleSheet.create({
     lineHeight: getResponsiveSize(16),
     color: COLORS.WHITE,
     opacity: 0.8,
+    fontFamily: FONTS["ProximaNovaA-Semibold"],
   },
   privacyLink: {
     textDecorationLine: "underline",

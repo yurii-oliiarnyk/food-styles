@@ -3,7 +3,7 @@ import { StatusBar, StyleSheet, Text, View } from "react-native";
 import FormItem from "../../components/FormItem";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { COLORS } from "../../colors";
+import { COLORS } from "../../constants/colors";
 import { getResponsiveSize } from "../../utils";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useForm from "../../hooks/useForm";
@@ -13,6 +13,7 @@ import UserContext from "../../context/UserContext";
 import useUpdateUserMutation from "../../hooks/mutations/useUpdateUserMutation";
 import Loader from "../../components/Loader";
 import { showMessage } from "react-native-flash-message";
+import { FONTS } from "../../constants/fonts";
 
 const ProfileScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: getResponsiveSize(15),
     letterSpacing: getResponsiveSize(0.75),
-    fontWeight: "bold",
+    fontFamily: FONTS["ProximaNovaA-Bold"],
     color: COLORS.GREYISH_BROWN,
   },
   buttonWrapper: {

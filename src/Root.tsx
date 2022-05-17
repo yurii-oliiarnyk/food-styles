@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import RootNavigator from "./navigation/RootNavigator";
 import UserContext from "./context/UserContext";
 import useLoginWithEmailMutation from "./hooks/mutations/useLoginWithEmailMutation";
-import { accessTokenKey, userCredentailsKey } from "./constants";
+import { accessTokenKey, userCredentailsKey } from "./constants/storageKeys";
 import Loader from "./components/Loader";
 import { User } from "./types";
 
@@ -37,9 +37,9 @@ const Root = () => {
       const storageUserCredentialsJson = await AsyncStorage.getItem(
         userCredentailsKey,
       );
-      const storageUserCredentials = JSON.parse(
-        storageUserCredentialsJson ?? "",
-      );
+      const storageUserCredentials = storageUserCredentialsJson
+        ? JSON.parse(storageUserCredentialsJson)
+        : null;
 
       if (storageUserCredentials) {
         loginWithEmail(

@@ -7,7 +7,8 @@ import {
   ViewStyle,
   TextStyle,
 } from "react-native";
-import { COLORS } from "../colors";
+import { COLORS } from "../constants/colors";
+import { FONTS } from "../constants/fonts";
 import { getResponsiveSize } from "../utils";
 
 const Button = ({
@@ -122,8 +123,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: "center",
-    fontWeight: "500",
-    letterSpacing: getResponsiveSize(1),
+    fontFamily: FONTS["ProximaNovaA-Bold"],
   },
   buttonPrimaryText: {
     color: COLORS.WHITE,
@@ -136,11 +136,9 @@ const styles = StyleSheet.create({
   },
   buttonMediumText: {
     fontSize: getResponsiveSize(16),
-    lineHeight: getResponsiveSize(18),
   },
   buttonSmallText: {
     fontSize: getResponsiveSize(13),
-    lineHeight: getResponsiveSize(14),
   },
   icon: {
     marginRight: getResponsiveSize(10),

@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, TextInput } from "react-native";
-import { COLORS } from "../colors";
+import { COLORS } from "../constants/colors";
+import { FONTS } from "../constants/fonts";
 import { getResponsiveSize } from "../utils";
 
 const Input = ({
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: getResponsiveSize(11),
     height: getResponsiveSize(35),
     color: COLORS.GREYISH_BROWN,
-    fontWeight: "600",
+    fontFamily: FONTS["ProximaNovaA-Bold"],
     borderRadius: 4,
   },
   dark: {

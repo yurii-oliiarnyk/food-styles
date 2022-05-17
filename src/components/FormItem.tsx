@@ -1,6 +1,7 @@
 import React, { ReactChild } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { COLORS } from "../colors";
+import { COLORS } from "../constants/colors";
+import { FONTS } from "../constants/fonts";
 import { getResponsiveSize } from "../utils";
 
 const FormItem = ({
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: getResponsiveSize(16),
     lineHeight: getResponsiveSize(19),
-    fontWeight: "600",
+    fontFamily: FONTS["ProximaNovaA-Bold"],
     color: COLORS.WHITE,
   },
   light: {
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     color: COLORS.GREYISH_BROWN,
   },
   helper: {
-    fontWeight: "400",
+    fontFamily: FONTS["ProximaNovaA-Regular"],
   },
 });
 

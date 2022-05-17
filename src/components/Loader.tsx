@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
-import { COLORS } from "../colors";
+import { COLORS } from "../constants/colors";
 
 const Loader = ({ visible }: { visible: boolean }) => {
   if (!visible) {
