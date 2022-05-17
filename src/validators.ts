@@ -4,7 +4,7 @@ export const validators = {
     message: "Name is too short",
   },
   password: {
-    validate: (value: string) => value.length > 6,
+    validate: (value: string) => value.length >= 6,
     message: "Password is too short",
   },
   email: {

@@ -19,6 +19,7 @@ const Input = ({
       style={[styles.input, styles[variant]]}
       value={value}
       onChangeText={onChange}
+      autoCapitalize="none"
       secureTextEntry={type === "password"}
     />
   );

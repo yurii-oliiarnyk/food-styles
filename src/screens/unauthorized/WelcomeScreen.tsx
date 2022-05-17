@@ -49,12 +49,12 @@ const WelcomeScreen = ({
         </View>
         <View style={styles.buttonWrapper}>
           <Button variant="white" onPress={signUpWithEmail}>
-            Sign in with Email
+            Sign up with Email
           </Button>
         </View>
         <View style={styles.linkWrapper}>
           <Text style={styles.link} onPress={signInWithEmail}>
-            Log in with Email
+            Sign in with Email
           </Text>
         </View>
         <View style={styles.privacy}>

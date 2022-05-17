@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StatusBar, StyleSheet, Text, View } from "react-native";
 import FormItem from "../../components/FormItem";
 import Button from "../../components/Button";
@@ -7,11 +7,24 @@ import { COLORS } from "../../colors";
 import { getResponsiveSize } from "../../utils";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useForm from "../../hooks/useForm";
+import { gql, useMutation } from "@apollo/client";
 import { validators } from "../../validators";
 import Errors from "../../components/Errors";
+import UserContext from "../../context/UserContext";
 
-const ProfileScreen = ({ logOut }: { logOut: () => void }) => {
+const UPDATE_USER = gql`
+  mutation UpdateUser($name: NonEmptyString!, $email: EmailAddress!) {
+    updateUser(name: $name, email: $email) {
+      id
+      name
+      email
+    }
+  }
+`;
+
+const ProfileScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
+  const { logOut, user, updateUser } = useContext(UserContext);
 
   const {
     values: { name, email },
@@ -20,17 +33,25 @@ const ProfileScreen = ({ logOut }: { logOut: () => void }) => {
     errorMessages,
   } = useForm<"name" | "email">(
     {
-      name: "Palle Derkert",
-      email: "palle@obviuse.se",
+      name: user?.name ?? "",
+      email: user?.email ?? "",
     },
-    { name: validators.name, email: validators.email },
+    {
+      name: validators.name,
+      email: validators.email,
+    },
   );
 
-  const onSubmit = () => {
-    const isFormValid = checkValidation();
+  const [updateUserInfo, { loading, error }] = useMutation(UPDATE_USER);
 
-    if (isFormValid) {
-      console.log(isFormValid);
+  const onSubmit = () => {
+    if (checkValidation()) {
+      updateUserInfo({
+        variables: { name, email },
+        onCompleted: ({ updateUser: updatedUser }) => {
+          updateUser(updatedUser);
+        },
+      });
     }
   };
 
