@@ -1,5 +1,10 @@
 import React from "react";
-import { ReturnKeyTypeOptions, StyleSheet, TextInput } from "react-native";
+import {
+  Platform,
+  ReturnKeyTypeOptions,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import { COLORS } from "../constants/colors";
 import { FONTS } from "../constants/fonts";
 import { getResponsiveSize } from "../utils";
@@ -64,13 +69,20 @@ const styles = StyleSheet.create({
   },
   light: {
     backgroundColor: COLORS.WHITE,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowRadius: 3,
-    shadowOpacity: 0.05,
+    ...Platform.select({
+      ios: {
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowRadius: 3,
+        shadowOpacity: 0.05,
+      },
+      android: {
+        elevation: 1,
+      },
+    }),
   },
 });
 

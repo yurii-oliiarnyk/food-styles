@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View, Image, Alert } from "react-native";
+import { Text, StyleSheet, View, Image, Alert, Platform } from "react-native";
 import { getResponsiveSize } from "../../utils";
 import Button from "../../components/Button";
 import { COLORS } from "../../constants/colors";
@@ -132,14 +132,21 @@ const styles = StyleSheet.create({
   },
   labelWrapper: {
     backgroundColor: COLORS.TOMATO,
-    shadowColor: COLORS.GREYISH_BROWN,
+    ...Platform.select({
+      ios: {
+        shadowColor: COLORS.GREYISH_BROWN,
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowRadius: 10,
+        shadowOpacity: 0.3,
+      },
+      android: {
+        elevation: 1,
+      },
+    }),
     paddingVertical: getResponsiveSize(9),
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowRadius: 10,
-    shadowOpacity: 0.3,
     position: "absolute",
     left: "-33%",
     top: getResponsiveSize(45),

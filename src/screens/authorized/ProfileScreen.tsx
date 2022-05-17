@@ -2,6 +2,7 @@ import React, { useContext, useMemo, useRef } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
+  Platform,
   StatusBar,
   StyleSheet,
   Text,
@@ -149,9 +150,16 @@ const styles = StyleSheet.create({
   controlsBar: {
     backgroundColor: "#fff",
     alignItems: "center",
-    shadowColor: "#000000",
-    shadowRadius: 15,
-    shadowOpacity: 0.1,
+    ...Platform.select({
+      ios: {
+        shadowColor: "#000000",
+        shadowRadius: 15,
+        shadowOpacity: 0.1,
+      },
+      android: {
+        elevation: 1,
+      },
+    }),
   },
   controlsBarContent: {
     marginTop: getResponsiveSize(-8),

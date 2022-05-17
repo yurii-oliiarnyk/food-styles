@@ -6,6 +6,7 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
+  Platform,
 } from "react-native";
 import { COLORS } from "../constants/colors";
 import { FONTS } from "../constants/fonts";
@@ -85,13 +86,20 @@ const Button = ({
 };
 
 const getButtonShadow = () => ({
-  shadowColor: COLORS.GREYISH_BROWN,
-  shadowOffset: {
-    width: 0,
-    height: 2,
-  },
-  shadowRadius: 7,
-  shadowOpacity: 0.2,
+  ...Platform.select({
+    ios: {
+      shadowColor: COLORS.GREYISH_BROWN,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowRadius: 7,
+      shadowOpacity: 0.2,
+    },
+    android: {
+      elevation: 1,
+    },
+  }),
 });
 
 const styles = StyleSheet.create({
