@@ -9,25 +9,13 @@ import AuthLayout from "../../layouts/AuthLayout";
 import { validators } from "../../validators";
 import { getResponsiveSize } from "../../utils";
 import Errors from "../../components/Errors";
-import { gql, useMutation } from "@apollo/client";
 import UserContext from "../../context/UserContext";
-
-const LOGIN_WITH_EMAIL = gql`
-  mutation LoginWithEmail($email: EmailAddress!, $password: NonEmptyString!) {
-    loginWithEmail(email: $email, password: $password) {
-      user {
-        id
-        email
-        name
-      }
-      accessToken
-      refreshToken
-    }
-  }
-`;
+import useLoginWithEmailMutation from "../../hooks/mutations/useLoginWithEmailMutation";
+import Loader from "../../components/Loader";
 
 const SignInScreen = ({ back }: { back: () => void }) => {
   const { signIn } = useContext(UserContext);
+  const { error, loading, loginWithEmail } = useLoginWithEmailMutation();
 
   const {
     values: { email, password },
@@ -42,26 +30,17 @@ const SignInScreen = ({ back }: { back: () => void }) => {
     { email: validators.email, password: validators.password },
   );
 
-  const [login, { loading, error }] = useMutation(LOGIN_WITH_EMAIL);
-
   const onSubmit = () => {
     const isFormValid = checkValidation();
 
     if (isFormValid) {
-      login({
-        variables: { email, password },
-        onCompleted: ({
-          loginWithEmail: { accessToken, refreshToken, user },
-        }) => {
-          signIn(user, accessToken, refreshToken);
-        },
+      loginWithEmail({ email, password }, ({ accessToken, user }) => {
+        signIn(user, accessToken, { email, password });
       });
     }
   };
 
   const visibleErrors = useMemo(() => {
-    console.log(error);
-
     if (error?.message) {
       return [error.message];
     }
@@ -70,34 +49,40 @@ const SignInScreen = ({ back }: { back: () => void }) => {
   }, [error, errorMessages]);
 
   return (
-    <AuthLayout header={<Header title="Log in" back={back} />}>
-      <FormItem variant="light" label="Email">
-        <Input
-          variant="light"
-          value={email}
-          onChange={setFieldValue("email")}
-        />
-      </FormItem>
-      <FormItem variant="light" label="Password">
-        <Input
-          type="password"
-          variant="light"
-          value={password}
-          onChange={setFieldValue("password")}
-        />
-      </FormItem>
-      {visibleErrors.length > 0 && <Errors messages={visibleErrors} />}
-      <View style={styles.buttonView}>
-        <Button onPress={onSubmit}>SIGN IN</Button>
-      </View>
-    </AuthLayout>
+    <View style={styles.view}>
+      <AuthLayout header={<Header title="Log in" back={back} />}>
+        <FormItem variant="light" label="Email">
+          <Input
+            variant="light"
+            value={email}
+            onChange={setFieldValue("email")}
+          />
+        </FormItem>
+        <FormItem variant="light" label="Password">
+          <Input
+            type="password"
+            variant="light"
+            value={password}
+            onChange={setFieldValue("password")}
+          />
+        </FormItem>
+        {visibleErrors.length > 0 && <Errors messages={visibleErrors} />}
+        <View style={styles.buttonView}>
+          <Button onPress={onSubmit}>SIGN IN</Button>
+        </View>
+      </AuthLayout>
+      <Loader visible={loading} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+  },
   buttonView: {
     alignItems: "center",
-    marginTop: getResponsiveSize(26),
+    marginTop: getResponsiveSize(13),
   },
 });
 
