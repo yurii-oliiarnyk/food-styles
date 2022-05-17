@@ -1,30 +1,55 @@
 import React from "react";
-import { StyleSheet, TextInput } from "react-native";
+import { ReturnKeyTypeOptions, StyleSheet, TextInput } from "react-native";
 import { COLORS } from "../constants/colors";
 import { FONTS } from "../constants/fonts";
 import { getResponsiveSize } from "../utils";
 
-const Input = ({
-  value,
-  onChange,
-  variant = "dark",
-  type = "text",
-}: {
+type Props = {
   value: string;
   onChange: (value: string) => void;
   variant?: "light" | "dark";
-  type?: "text" | "password";
-}) => {
-  return (
-    <TextInput
-      style={[styles.input, styles[variant]]}
-      value={value}
-      onChangeText={onChange}
-      autoCapitalize="none"
-      secureTextEntry={type === "password"}
-    />
-  );
+  type?: "text" | "password" | "email";
+  autoFocus?: boolean;
+  returnKeyType?: ReturnKeyTypeOptions;
+  onSubmitEditing?: () => void;
+  blurOnSubmit?: boolean;
 };
+
+const Input = React.forwardRef<TextInput, Props>(
+  (
+    {
+      value,
+      onChange,
+      variant = "dark",
+      type = "text",
+      autoFocus,
+      returnKeyType,
+      onSubmitEditing,
+      blurOnSubmit,
+    },
+    ref,
+  ) => {
+    return (
+      <TextInput
+        ref={ref}
+        style={[styles.input, styles[variant]]}
+        value={value}
+        onChangeText={onChange}
+        autoCapitalize="none"
+        secureTextEntry={type === "password"}
+        autoFocus={autoFocus}
+        returnKeyType={returnKeyType}
+        onSubmitEditing={onSubmitEditing}
+        blurOnSubmit={blurOnSubmit}
+        {...(type === "email" && {
+          autoComplete: "email",
+          keyboardType: "email-address",
+          textContentType: "emailAddress",
+        })}
+      />
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   input: {

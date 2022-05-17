@@ -33,6 +33,10 @@ const Root = () => {
   };
 
   useEffect(() => {
+    if (initialized) {
+      return;
+    }
+
     (async () => {
       const storageUserCredentialsJson = await AsyncStorage.getItem(
         userCredentailsKey,
@@ -60,7 +64,7 @@ const Root = () => {
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initialized]);
 
   return (
     <UserContext.Provider

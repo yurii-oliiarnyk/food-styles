@@ -1,5 +1,10 @@
-import React, { useContext, useMemo } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useContext, useMemo, useRef } from "react";
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 import Button from "../../components/Button";
 import FormItem from "../../components/FormItem";
 import Header from "../../components/Header";
@@ -14,6 +19,9 @@ import useSignUpWithEmailMutation from "../../hooks/mutations/useSignUpWithEmail
 import Loader from "../../components/Loader";
 
 const SignUpScreen = ({ back }: { back: () => void }) => {
+  const emailInput = useRef<TextInput>(null);
+  const passwordInput = useRef<TextInput>(null);
+
   const { signIn } = useContext(UserContext);
   const { signUpWithEmail, error, loading } = useSignUpWithEmailMutation();
 
@@ -35,7 +43,7 @@ const SignUpScreen = ({ back }: { back: () => void }) => {
     },
   );
 
-  const onSubmit = () => {
+  const submit = () => {
     if (checkValidation()) {
       signUpWithEmail({ email, name, password }, ({ accessToken, user }) => {
         signIn(user, accessToken, { email, password });
@@ -52,37 +60,50 @@ const SignUpScreen = ({ back }: { back: () => void }) => {
   }, [error, errorMessages]);
 
   return (
-    <View style={styles.view}>
+    <KeyboardAvoidingView style={styles.view} behavior="height">
       <AuthLayout header={<Header title="Sign up with Email" back={back} />}>
         <FormItem variant="light" label="Your name">
           <Input
             variant="light"
             value={name}
             onChange={setFieldValue("name")}
+            onSubmitEditing={() => emailInput.current?.focus()}
+            blurOnSubmit={false}
+            returnKeyType="next"
+            autoFocus
           />
         </FormItem>
         <FormItem variant="light" label="Email">
           <Input
+            ref={emailInput}
+            type="email"
             variant="light"
             value={email}
             onChange={setFieldValue("email")}
+            blurOnSubmit={false}
+            returnKeyType="next"
+            onSubmitEditing={() => passwordInput.current?.focus()}
           />
         </FormItem>
         <FormItem variant="light" label="Password" helper="(min 6 characters)">
           <Input
+            ref={passwordInput}
             type="password"
             variant="light"
             value={password}
             onChange={setFieldValue("password")}
+            blurOnSubmit={false}
+            returnKeyType="send"
+            onSubmitEditing={submit}
           />
         </FormItem>
         {visibleErrors.length > 0 && <Errors messages={visibleErrors} />}
         <View style={styles.buttonView}>
-          <Button onPress={onSubmit}>SIGN UP</Button>
+          <Button onPress={submit}>SIGN UP</Button>
         </View>
       </AuthLayout>
       <Loader visible={loading} />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

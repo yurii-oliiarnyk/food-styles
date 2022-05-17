@@ -1,5 +1,14 @@
-import React, { useContext, useMemo } from "react";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import React, { useContext, useMemo, useRef } from "react";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import FormItem from "../../components/FormItem";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -16,6 +25,8 @@ import { showMessage } from "react-native-flash-message";
 import { FONTS } from "../../constants/fonts";
 
 const ProfileScreen = () => {
+  const refEmailInput = useRef<TextInput>(null);
+
   const { top, bottom } = useSafeAreaInsets();
   const { logOut, user, updateUser } = useContext(UserContext);
   const {
@@ -40,7 +51,7 @@ const ProfileScreen = () => {
     },
   );
 
-  const onSubmit = () => {
+  const submit = () => {
     if (checkValidation()) {
       updateUserMutate({ name, email }, updatedUser => {
         showMessage({
@@ -49,6 +60,7 @@ const ProfileScreen = () => {
         });
 
         updateUser(updatedUser);
+        Keyboard.dismiss();
       });
     }
   };
@@ -62,32 +74,50 @@ const ProfileScreen = () => {
   }, [error, errorMessages]);
 
   return (
-    <View style={styles.page}>
-      <View style={[styles.view, { padding: top }]}>
-        <StatusBar barStyle="dark-content" />
-        <View style={styles.header}>
-          <Text style={styles.title}>PROFILE</Text>
+    <KeyboardAvoidingView style={styles.page} behavior="height">
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.page}>
+          <View style={[styles.view, { padding: top }]}>
+            <StatusBar barStyle="dark-content" />
+            <View style={styles.header}>
+              <Text style={styles.title}>PROFILE</Text>
+            </View>
+            <FormItem label="Name shown on your shared cards">
+              <Input
+                value={name}
+                onChange={setFieldValue("name")}
+                returnKeyType="next"
+                onSubmitEditing={() => refEmailInput.current?.focus()}
+                blurOnSubmit={false}
+              />
+            </FormItem>
+            <FormItem label="Email">
+              <Input
+                type="email"
+                value={email}
+                onChange={setFieldValue("email")}
+                ref={refEmailInput}
+                onSubmitEditing={submit}
+                blurOnSubmit={false}
+                returnKeyType="send"
+              />
+            </FormItem>
+            {visibleErrors.length > 0 && <Errors messages={visibleErrors} />}
+            <View style={styles.buttonWrapper}>
+              <Button variant="grey" size="small" onPress={logOut}>
+                LOG OUT
+              </Button>
+            </View>
+          </View>
+          <View style={[styles.controlsBar, { paddingBottom: bottom }]}>
+            <View style={styles.controlsBarContent}>
+              <Button onPress={submit}>DONE</Button>
+            </View>
+          </View>
+          <Loader visible={loading} />
         </View>
-        <FormItem label="Name shown on your shared cards">
-          <Input value={name} onChange={setFieldValue("name")} />
-        </FormItem>
-        <FormItem label="Email">
-          <Input value={email} onChange={setFieldValue("email")} />
-        </FormItem>
-        {visibleErrors.length > 0 && <Errors messages={visibleErrors} />}
-        <View style={styles.buttonWrapper}>
-          <Button variant="grey" size="small" onPress={logOut}>
-            LOG OUT
-          </Button>
-        </View>
-      </View>
-      <View style={[styles.controlsBar, { paddingBottom: bottom }]}>
-        <View style={styles.controlsBarContent}>
-          <Button onPress={onSubmit}>DONE</Button>
-        </View>
-      </View>
-      <Loader visible={loading} />
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
